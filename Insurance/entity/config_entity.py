@@ -44,3 +44,6 @@ class DataValidationConfig:
         except Exception as e:
             raise InsuranceException(e, sys)
         
+class DataTransformationConfig:
+    def __init__(self,training_pip) -> None:
+        pass
