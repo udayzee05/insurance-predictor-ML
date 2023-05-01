@@ -2,6 +2,7 @@
 import os
 import sys
 import pandas as pd
+import numpy as np
 from Insurance.exception import InsuranceException
 from Insurance.logger import logging
 from Insurance.entity import config_entity,artifact_entity
@@ -66,6 +67,11 @@ class DataTransformation:
             input_feature_train_arr = transformation_pipeline.transform(input_feature_train_df)
             input_feature_test_arr = transformation_pipeline.transform(input_feature_test_df)
 
+            train_arr = np.c_[input_feature_train_arr,target_feature_train_arr]
+            test_arr = np.c_[input_feature_test_arr,target_feature_test_arr]
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transform_train_path,array = train_arr)
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transform_test_path,array = test_arr)
+
             utils.save_object(file_path=self.data_transformation_config.transform_object_path,
                               obj=transformation_pipeline)
             utils.save_object(file_path=self.data_transformation_config.target_encoder_path,
@@ -74,8 +80,8 @@ class DataTransformation:
             data_transformation_artifact = artifact_entity.DataTransformationArtifact(
                 transform_object_path=self.data_transformation_config.transform_object_path,
                 transform_train_path=self.data_transformation_config.transform_train_path,
-                transform_test_path=self.data_transformation_config.transform_test_path
-                
+                transform_test_path=self.data_transformation_config.transform_test_path,
+                target_encoder_path = self.data_transformation_config.target_encoder_path
             )
             return data_transformation_artifact
         except Exception as e:
