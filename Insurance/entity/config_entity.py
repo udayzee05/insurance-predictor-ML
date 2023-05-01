@@ -6,6 +6,7 @@ from Insurance.logger import logging
 FILE_NAME = "insurance.csv"
 TRAIN_FILE_NAME = "train.csv"
 TEST_FILE_NAME = "test.csv"
+TRANSFORM_OBJECT_FILE_NAME = "transformed.pkl" 
 class TrainingPipelineConfig:
     def __init__(self):
         try:
@@ -45,5 +46,9 @@ class DataValidationConfig:
             raise InsuranceException(e, sys)
         
 class DataTransformationConfig:
-    def __init__(self,training_pip) -> None:
-        pass
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.data_transformation_dir = os.path.join(training_pipeline_config.artifact_dir,"data_transformation")
+        self.transform_obeject_path = os.path.join(training_pipeline_config,"transformed",TRANSFORM_OBJECT_FILE_NAME)
+        self.transform_train_path = os.path.join(training_pipeline_config,"transformed",TRAIN_FILE_NAME.replace('csv','npz'))
+        self.transform_test_path = os.path.join(training_pipeline_config,"transformed",TEST_FILE_NAME.replace('csv','npz'))
+        

@@ -6,6 +6,7 @@ from Insurance.exception import InsuranceException
 from Insurance.config import mongo_client
 from Insurance.logger import logging
 import yaml
+import dill
 
 def get_collection_as_dataframe(database_name:str, collection_name:str)->pd.DataFrame:
     try:
@@ -39,5 +40,24 @@ def convert_columns_float(df:pd.DataFrame, exclude_columns:list)->pd.DataFrame:
                     df[column] = df[column].astype(float)
                     
         return df
+    except Exception as e:
+        raise InsuranceException(e, sys)
+
+
+
+def save_object(file_path:str,obj:object)->None:
+    try:
+        os.makedirs(os.path.dirname(file_path),exist_ok=True)
+        with open(file_path,"wb") as f:
+            dill.dump(obj,f)
+    except Exception as e:
+        raise InsuranceException(e, sys)
+    
+def load_object(file_path:str)->object:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"the file {file_path} does not exist")
+        with open(file_path,"rb") as f:
+            return dill.load(f)
     except Exception as e:
         raise InsuranceException(e, sys)
