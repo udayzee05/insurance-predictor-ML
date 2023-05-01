@@ -81,8 +81,7 @@ class DataTransformation:
                 transform_object_path=self.data_transformation_config.transform_object_path,
                 transform_train_path=self.data_transformation_config.transform_train_path,
                 transform_test_path=self.data_transformation_config.transform_test_path,
-                target_encoder_path = self.data_transformation_config.target_encoder_path
-            )
+                target_encoder_path = self.data_transformation_config.target_encoder_path)
             return data_transformation_artifact
         except Exception as e:
             raise InsuranceException(e, sys)
