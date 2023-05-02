@@ -13,7 +13,6 @@ from Insurance.config import TARGET_COLUMN
 from sklearn.preprocessing import LabelEncoder
 from Insurance import utils
 
-
 class DataTransformation:
     def __init__(self,data_transformation_config:config_entity.DataTransformationConfig,
                  data_ingestion_artifact:artifact_entity.DataIngestionArtifact):

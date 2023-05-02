@@ -70,3 +70,13 @@ def save_numpy_array_data(file_path:str,array=np.array):
             np.save(f,array)
     except Exception as e:
         raise InsuranceException(e, sys)
+    
+
+def load_numpy_array_data(file_path:str)->np.array:
+    try:
+        if not os.path.exists(file_path):
+            raise Exception(f"the file {file_path} does not exist")
+        with open(file_path,"rb") as f:
+            return np.load(f)
+    except Exception as e:
+        raise InsuranceException(e, sys)
