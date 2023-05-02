@@ -12,24 +12,23 @@ class ModelResolver:
                  transform_dir_name = "transform",
                  target_encoder_dir_name = "target_encoder",
                  model_dir_name = "model"):
-        try:
-            self.model_registry = model_registry
-            os.makedirs(self.model_registry,exist_ok=True)
-            self.transform_dir_name = transform_dir_name
-            self.target_encoder_dir_name = target_encoder_dir_name
-            self.model_dir_name = model_dir_name
 
-        except Exception as e:
-            raise InsuranceException(e, sys)
+        self.model_registry = model_registry
+        os.makedirs(self.model_registry,exist_ok=True)
+        self.transform_dir_name = transform_dir_name
+        self.target_encoder_dir_name = target_encoder_dir_name
+        self.model_dir_name = model_dir_name
+
         
     
     def get_latest_dir_path(self)-> Optional[str]:
         try:
-            dir_name = os.listdir(self.model_registry)
-            if len(dir_name) ==0:
+            dir_names = os.listdir(self.model_registry)
+
+            if len(dir_names) ==0:
                 return None
-            dir_name = list(map(int,dir_name))
-            latest_dir_name = max(dir_name)
+            dir_names = list(map(int,dir_names))
+            latest_dir_name = max(dir_names)
 
             return os.path.join(self.model_registry,f"{latest_dir_name}")
 
@@ -67,7 +66,7 @@ class ModelResolver:
             return os.path.join(latest_dir,self.target_encoder_dir_name,TARGET_ENCODER_OBJECT_FILE_NAME)
         except Exception as e:
             raise InsuranceException(e, sys)
-        
+    
 
     def get_latest_saved_dir_path(self)->str:
         try:
@@ -81,7 +80,7 @@ class ModelResolver:
         
     def get_latest_save_model_path(self):
         try:
-            latest_dir = self.get_latest_dir_path()
+            latest_dir = self.get_latest_saved_dir_path()
             return os.path.join(latest_dir,self.model_dir_name,MODEL_FILE_NAME)
         
         except Exception as e:

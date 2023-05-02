@@ -69,3 +69,12 @@ class ModelEvaluationConfig:
         self.change_threshold = 0.01
         self.is_model_accepted = True
         self.improved_accuracy = 0.7
+
+class ModelPusherConfig:
+    def __init__(self,training_pipeline_config:TrainingPipelineConfig):
+        self.model_pusher_dir = os.path.join(training_pipeline_config.artifact_dir,"model_pusher_file")
+        self.saved_model_dir = os.path.join("saved_models")
+        self.pusher_model_dir = os.path.join(self.model_pusher_dir,"model")
+        self.pusher_model_path = os.path.join(self.pusher_model_dir,MODEL_FILE_NAME)
+        self.pusher_transform_path = os.path.join(self.pusher_model_dir,TRANSFORM_OBJECT_FILE_NAME)
+        self.pusher_target_encoder_path = os.path.join(self.pusher_model_dir,TARGET_ENCODER_OBJECT_FILE_NAME)

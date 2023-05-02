@@ -20,7 +20,6 @@ class ModelEvaluation:
             self.data_ingestion_artifact = data_ingestion_artifact
             self.data_transformation_artifact = data_transformation_artifact
             self.model_trainer_artifact = model_trainer_artifact
-
             self.model_resolver = ModelResolver()
         except Exception as e:
             raise InsuranceException(e, sys)
