@@ -47,7 +47,7 @@ class ModelResolver:
         except Exception as e:
             raise InsuranceException(e, sys)
 
-    def get_latest_tranformed_data(self):
+    def get_latest_tranformed_path(self):
         try:
             latest_dir = self.get_latest_dir_path()
 
