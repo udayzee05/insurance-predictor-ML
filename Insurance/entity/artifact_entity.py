@@ -24,3 +24,8 @@ class ModelTrainerArtifact:
     model_file_path:str
     r2_score_train:float
     r2_score_test:float
+
+@dataclass
+class ModelEvaluationArtifact:
+    is_model_accepted:bool
+    improved_accuracy:float
